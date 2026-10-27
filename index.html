@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>古人聊天室</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100dvh;font-family:"Noto Serif TC","Microsoft JhengHei",serif;color:#3b2f24;
+    background:linear-gradient(135deg,#d8c9a6,#b9a77d);display:flex;justify-content:center;padding:24px 16px}
+  main{width:100%;max-width:520px}
+  h1{text-align:center;margin:8px 0 4px;font-size:28px;letter-spacing:4px;color:#8a2a1e}
+  p.sub{text-align:center;margin:0 0 20px;font-size:14px}
+  a.card{display:flex;align-items:center;gap:14px;background:#f4ecd8;border:1px solid #d9c9a3;border-radius:16px;
+    padding:16px;margin-bottom:14px;text-decoration:none;color:inherit;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+  a.card:active{transform:scale(.98)}
+  .av{width:60px;height:60px;border-radius:50%;color:#fff;display:grid;place-items:center;font-size:30px;font-weight:700;flex:none}
+  .su{background:#b3342a}.hy{background:#35566e}
+  .t b{display:block;font-size:20px}
+  .t span{font-size:13px;opacity:.8}
+  .go{margin-left:auto;font-size:22px;opacity:.5}
+  footer{text-align:center;font-size:12px;opacity:.7;margin-top:18px}
+</style>
+</head>
+<body>
+<main>
+  <h1>古人聊天室</h1>
+  <p class="sub">選一位古人，開始聊天、闖關</p>
+  <a class="card" href="su/">
+    <div class="av su">坡</div>
+    <div class="t"><b>蘇軾・東坡居士</b><span>宋代・詞人、美食家，聊人生豁達</span></div>
+    <div class="go">›</div>
+  </a>
+  <a class="card" href="hanyu/">
+    <div class="av hy">愈</div>
+    <div class="t"><b>韓愈・昌黎先生</b><span>唐代・古文運動旗手，聊〈師說〉</span></div>
+    <div class="go">›</div>
+  </a>
+  <footer>離線劇本版・內容含傳說處皆已標註</footer>
+</main>
+</body>
+</html>

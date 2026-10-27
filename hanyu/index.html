@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>韓愈古人聊天室</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="phone">
+  <header class="topbar">
+    <div class="avatar">愈</div>
+    <div class="who">
+      <div class="name">韓愈 <span class="tag">昌黎先生</span></div>
+      <div class="status"><i class="dot"></i><span>在線・唐代</span></div>
+    </div>
+    <button id="seatBtn" class="chip" title="變更座號">👤 <span id="seatLabel">未登入</span></button>
+  </header>
+
+  <main id="chat" class="chat" aria-live="polite"></main>
+
+  <footer class="bottom">
+    <div class="menu">
+      <button data-topic="intro">👦 自我介紹</button>
+      <button data-topic="works">📜 得意作品</button>
+      <button data-topic="gossip">🍵 八卦趣聞</button>
+      <button data-topic="friends">👥 文人朋友圈</button>
+      <button id="quizBtn" class="quiz">🎯 友情考核</button>
+      <button id="formBtn" class="quiz" hidden>📝 正式作答</button>
+    </div>
+    <form id="form" class="input">
+      <input id="text" type="text" placeholder="對韓愈說點什麼…" autocomplete="off">
+      <button type="submit">送出</button>
+    </form>
+  </footer>
+</div>
+
+<dialog id="seatDlg">
+  <form method="dialog" id="seatForm">
+    <h3>歡迎來到韓愈聊天室</h3>
+    <p>請輸入你的「班級座號」（例：701 班 5 號 → 70105），老師才看得到你的答題情況。</p>
+    <input id="seatInput" type="text" maxlength="12" placeholder="班級座號" autocomplete="off">
+    <div class="row"><button id="seatOk" value="ok">進入聊天室</button></div>
+  </form>
+</dialog>
+
+<script src="config.js"></script>
+<script src="app-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>蘇軾古人聊天室</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="phone">
+  <header class="topbar">
+    <div class="avatar">坡</div>
+    <div class="who">
+      <div class="name">蘇軾 <span class="tag">東坡居士</span></div>
+      <div class="status"><i class="dot"></i><span id="modeLabel">離線劇本模式</span>・宋代</div>
+    </div>
+    <button id="aiBtn" class="chip" title="切換 AI 即時對話">✨ AI 對話</button>
+  </header>
+
+  <main id="chat" class="chat" aria-live="polite"></main>
+
+  <footer class="bottom">
+    <div class="menu">
+      <button data-topic="intro">👦 自我介紹</button>
+      <button data-topic="works">📜 得意作品</button>
+      <button data-topic="gossip">🍵 八卦趣聞</button>
+      <button data-topic="friends">👥 文人朋友圈</button>
+      <button id="quizBtn" class="quiz">🎯 友情考核</button>
+    </div>
+    <form id="form" class="input">
+      <input id="text" type="text" placeholder="對東坡說點什麼…" autocomplete="off">
+      <button type="submit">送出</button>
+    </form>
+  </footer>
+</div>
+
+<dialog id="keyDlg">
+  <form method="dialog" id="keyForm">
+    <h3>啟用 AI 即時對話</h3>
+    <p>請輸入你的 Gemini API Key（僅存在本機瀏覽器，不會上傳到其他地方）。</p>
+    <input id="keyInput" type="password" placeholder="Gemini API Key">
+    <div class="row">
+      <button value="cancel" type="button" id="keyCancel">取消</button>
+      <button value="ok" id="keyOk">啟用</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="app-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
