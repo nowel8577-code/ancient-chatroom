@@ -12,9 +12,9 @@
     <div class="avatar">坡</div>
     <div class="who">
       <div class="name">蘇軾 <span class="tag">東坡居士</span></div>
-      <div class="status"><i class="dot"></i><span id="modeLabel">離線劇本模式</span>・宋代</div>
+      <div class="status"><i class="dot"></i><span>在線・宋代</span></div>
     </div>
-    <button id="aiBtn" class="chip" title="切換 AI 即時對話">✨ AI 對話</button>
+    <button id="seatBtn" class="chip" title="變更座號">👤 <span id="seatLabel">未登入</span></button>
   </header>
 
   <main id="chat" class="chat" aria-live="polite"></main>
@@ -35,15 +35,12 @@
   </footer>
 </div>
 
-<dialog id="keyDlg">
-  <form method="dialog" id="keyForm">
-    <h3>啟用 AI 即時對話</h3>
-    <p>請輸入你的 Gemini API Key（僅存在本機瀏覽器，不會上傳到其他地方）。</p>
-    <input id="keyInput" type="password" placeholder="Gemini API Key">
-    <div class="row">
-      <button value="cancel" type="button" id="keyCancel">取消</button>
-      <button value="ok" id="keyOk">啟用</button>
-    </div>
+<dialog id="seatDlg">
+  <form method="dialog" id="seatForm">
+    <h3>歡迎來到蘇軾聊天室</h3>
+    <p>請輸入你的「班級座號」（例：701 班 5 號 → 70105），老師才看得到你的答題情況。</p>
+    <input id="seatInput" type="text" maxlength="12" placeholder="班級座號" autocomplete="off">
+    <div class="row"><button id="seatOk" value="ok">進入聊天室</button></div>
   </form>
 </dialog>
 
