@@ -51,7 +51,7 @@ body{
 .opts button.bad{background:#f7c9c4;border-color:#c0584d}
 
 .bottom{background:#efe3c2;border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
-.menu{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+.menu{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:6px}
 .menu button{flex:none;border:1px solid var(--line);background:#fff;border-radius:16px;padding:6px 11px;font-size:13px;cursor:pointer;font-family:inherit}
 .menu button.quiz{background:var(--red);color:#fff;border-color:var(--red)}
 .input{display:flex;gap:8px}
