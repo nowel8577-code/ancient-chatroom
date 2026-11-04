@@ -188,6 +188,11 @@ ${D.card}
 
   document.querySelectorAll("[data-topic]").forEach((b) => (b.onclick = () => playTopic(b.dataset.topic)));
   $("#quizBtn").onclick = startQuiz;
+  if (window.QUIZ_URL) {
+    const fb = $("#formBtn");
+    fb.hidden = false;
+    fb.onclick = () => window.open(window.QUIZ_URL, "_blank", "noopener");
+  }
 
   form.onsubmit = async (e) => {
     e.preventDefault();
