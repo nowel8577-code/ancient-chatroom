@@ -30,6 +30,41 @@ for (const id of list) {
   if (!fs.existsSync(cfg)) fs.writeFileSync(cfg, DEFAULT_CONFIG);
 }
 
+// 1b. Google 測驗表單建立程式（貼到 script.google.com 執行 createForm）
+global.ACP_PEOPLE = {};
+for (const id of list) {
+  new Function("ACP_PEOPLE", fs.readFileSync(path.join(ROOT, `people/${id}.js`), "utf8"))(global.ACP_PEOPLE);
+  const P = global.ACP_PEOPLE[id];
+  const quiz = P.quiz.map((q) => ({ q: q.q, options: q.options, answer: q.answer, right: q.right, wrong: q.wrong }));
+  fs.writeFileSync(path.join(ROOT, id, "建立測驗表單.gs"), `// ${P.name}古人聊天室・友情考核：到 script.google.com 新增專案，貼上全部內容，執行 createForm
+const QUIZ = ${JSON.stringify(quiz, null, 1)};
+
+function createForm() {
+  const form = FormApp.create("${P.name}古人聊天室・友情考核");
+  form.setIsQuiz(true)
+    .setDescription("請先填班級座號（例：70105），再作答 ${quiz.length} 題。")
+    .setCollectEmail(false)
+    .setLimitOneResponsePerUser(false)
+    .setShowLinkToRespondAgain(false);
+  form.addTextItem().setTitle("班級座號").setRequired(true);
+  QUIZ.forEach((x, i) => {
+    const item = form.addMultipleChoiceItem();
+    item.setTitle((i + 1) + ". " + x.q)
+      .setChoices(x.options.map((o, k) => item.createChoice(o, k === x.answer)))
+      .setPoints(1)
+      .setRequired(true)
+      .setFeedbackForCorrect(FormApp.createFeedback().setText(x.right).build())
+      .setFeedbackForIncorrect(FormApp.createFeedback().setText(x.wrong).build());
+  });
+  const ss = SpreadsheetApp.create("${P.name}友情考核回覆");
+  form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
+  Logger.log("學生作答連結：" + form.getPublishedUrl());
+  Logger.log("編輯連結：" + form.getEditUrl());
+  Logger.log("回覆試算表：" + ss.getUrl());
+}
+`);
+}
+
 // 2. 本機伺服器
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
