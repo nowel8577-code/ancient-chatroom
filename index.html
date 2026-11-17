@@ -3,40 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>古人聊天室</title>
+<title>AI 古人聊天室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
 <style>
+  :root{--bg:#faf5ec;--card:#fffdf9;--line:#efe0c8;--ink:#2d2a26;--sub:#6b6358;--or:#e8761c;--or2:#c4621c;--peach:#fcefe2;--teal:#2f4a52}
   *{box-sizing:border-box}
-  body{margin:0;min-height:100dvh;font-family:"Noto Serif TC","Microsoft JhengHei",serif;color:#3b2f24;
-    background:linear-gradient(135deg,#d8c9a6,#b9a77d);display:flex;justify-content:center;padding:24px 16px}
-  main{width:100%;max-width:520px}
-  h1{text-align:center;margin:8px 0 4px;font-size:28px;letter-spacing:4px;color:#8a2a1e}
-  p.sub{text-align:center;margin:0 0 20px;font-size:14px}
-  a.card{display:flex;align-items:center;gap:14px;background:#f4ecd8;border:1px solid #d9c9a3;border-radius:16px;
-    padding:16px;margin-bottom:14px;text-decoration:none;color:inherit;box-shadow:0 4px 14px rgba(0,0,0,.15)}
-  a.card:active{transform:scale(.98)}
-  .av{width:60px;height:60px;border-radius:50%;color:#fff;display:grid;place-items:center;font-size:30px;font-weight:700;flex:none}
-  .su{background:#b3342a}.hy{background:#35566e}
-  .t b{display:block;font-size:20px}
-  .t span{font-size:13px;opacity:.8}
-  .go{margin-left:auto;font-size:22px;opacity:.5}
-  footer{text-align:center;font-size:12px;opacity:.7;margin-top:18px}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.7}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+  header.nav{position:sticky;top:0;z-index:5;background:#fffdf8ee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  header.nav .wrap{display:flex;align-items:center;gap:12px;height:64px}
+  .logo{font-weight:900;font-size:24px;letter-spacing:1px;text-decoration:none;display:flex;align-items:center;gap:10px}
+  .logo i{font-style:normal;background:linear-gradient(135deg,#f39a2b,#e8761c);color:#fff;border-radius:10px;padding:2px 10px;font-size:18px;box-shadow:0 4px 12px #e8761c55}
+  header.nav nav{margin-left:auto;display:flex;gap:18px;font-size:15px}
+  header.nav nav a{text-decoration:none;color:var(--sub)}
+  header.nav nav a:hover{color:var(--or)}
+  @media (max-width:560px){header.nav nav a:not(.keep){display:none}}
+
+  .hero{padding:48px 0 28px}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center}
+  .tag{display:inline-block;background:var(--peach);color:var(--or2);border-radius:20px;padding:2px 12px;font-size:13px;font-weight:700}
+  h1{font-size:clamp(34px,6vw,52px);margin:10px 0 8px;letter-spacing:2px;line-height:1.2}
+  .hero p{color:var(--sub);font-size:17px;margin:0 0 22px}
+  .btn{display:inline-flex;align-items:center;gap:6px;border-radius:14px;padding:11px 20px;font-weight:700;text-decoration:none;border:1.5px solid var(--line);background:#fff;font-size:15px;transition:.15s}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px #0000000f}
+  .btn.pri{background:var(--or);border-color:var(--or);color:#fff}
+  .btn.soft{background:var(--peach);border-color:#f2d3b4;color:var(--or2)}
+  .btns{display:flex;flex-wrap:wrap;gap:10px}
+  .visual{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:400/260;box-shadow:0 18px 40px #6b4a2a26;border:1px solid var(--line)}
+  .visual img{width:100%;height:100%;object-fit:cover;display:block}
+  .visual .seals{position:absolute;left:16px;bottom:14px;display:flex;gap:8px}
+  .visual .seals span{width:46px;height:46px;border-radius:50%;color:#fff;display:grid;place-items:center;font:700 22px "LXGW WenKai TC",serif;border:2px solid #fff;box-shadow:0 3px 8px #0003}
+  @media (max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero{padding-top:28px}}
+
+  section{padding:36px 0}
+  h2{font-size:clamp(24px,4vw,32px);margin:0 0 18px;letter-spacing:1px}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px}
+  .step b{display:block;font-size:18px;margin-bottom:4px}
+  .step b span{color:var(--or);margin-right:4px}
+  .step p{margin:0;color:var(--sub);font-size:15px}
+  .topics{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .topics span{background:var(--teal);color:#fff;border-radius:8px;padding:4px 10px;font-size:13px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:22px;display:flex;flex-direction:column}
+  .dyn{color:var(--or);font-weight:700}
+  .card h3{font-size:30px;margin:2px 0 0;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .card h3 i{width:38px;height:38px;border-radius:50%;color:#fff;display:grid;place-items:center;font:700 19px "LXGW WenKai TC",serif;font-style:normal}
+  .works{color:var(--sub);font-size:17px;margin:2px 0 14px}
+  .thumb{display:block;background:var(--peach);border-radius:18px;padding:16px 16px 0;height:220px;overflow:hidden}
+  .thumb img{display:block;width:78%;margin:0 auto;box-shadow:0 4px 14px #0000001a;border-radius:2px}
+  .ext{margin:14px 0;font-size:16px}
+  .ext b{color:var(--or2);margin-right:6px}
+  .card .btns{margin-top:auto}
+  .card .btn{padding:9px 16px}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-bottom:10px}
+  .faq summary{font-weight:700;cursor:pointer}
+  .faq p{margin:8px 0 0;color:var(--sub)}
+  footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--sub);font-size:14px;text-align:center}
 </style>
 </head>
 <body>
-<main>
-  <h1>古人聊天室</h1>
-  <p class="sub">選一位古人，開始聊天、闖關</p>
-  <a class="card" href="su/">
-    <div class="av su">坡</div>
-    <div class="t"><b>蘇軾・東坡居士</b><span>宋代・詞人、美食家，聊人生豁達</span></div>
-    <div class="go">›</div>
-  </a>
-  <a class="card" href="hanyu/">
-    <div class="av hy">愈</div>
-    <div class="t"><b>韓愈・昌黎先生</b><span>唐代・古文運動旗手，聊〈師說〉</span></div>
-    <div class="go">›</div>
-  </a>
-  <footer>離線劇本版・內容含傳說處皆已標註</footer>
-</main>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#">古人聊天室 <i>AI</i></a>
+    <nav><a href="#guide">課堂流程</a><a class="keep" href="#worksheets">人物與學習單</a><a href="qr.html">QR Code</a><a href="#faq">常見問題</a></nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <span class="tag">國文教材・離線劇本版</span>
+      <h1>AI 古人聊天室</h1>
+      <p>學生掃碼就能和古人聊天：點主題聽故事、聽詩、看美照、視訊通話，再完成學習單與友情考核。</p>
+      <div class="btns">
+        <a class="btn pri" href="#worksheets">選一位古人開始 ↓</a>
+        <a class="btn" href="qr.html">投影 QR Code</a>
+      </div>
+    </div>
+    <div class="visual"><img id="heroImg" alt="水墨山水"><div id="heroSeals" class="seals"></div></div>
+  </div>
+</div>
+
+<section id="guide">
+  <div class="wrap">
+    <h2>課堂流程</h2>
+    <div class="steps">
+      <div class="step"><b><span>1.</span>掃碼進聊天室</b><p>掃描老師投影的 QR Code，輸入班級座號（例：70105）。</p></div>
+      <div class="step"><b><span>2.</span>點主題找線索</b><p>八個主題按鈕各點一次，同一主題可再點看下一則，邊讀邊填學習單。</p></div>
+      <div class="step"><b><span>3.</span>翻課文核對</b><p>把學習單的答案對照課文或詩文原文，確認字詞正確。</p></div>
+      <div class="step"><b><span>4.</span>友情考核＋正式作答</b><p>先用「友情考核」練習，再按「📝 正式作答」到 Google 表單交卷。</p></div>
+    </div>
+    <div class="topics" id="topicTags"></div>
+  </div>
+</section>
+
+<section id="worksheets">
+  <div class="wrap">
+    <h2>人物與學習單下載</h2>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="wrap">
+    <h2>常見問題</h2>
+    <details><summary>學用版和教用版有什麼差別？</summary><p>學用版供學生作答，空格留白；教用版以朱紅字標出答案，供教師備課與核對。兩版都是 A4，可直接列印。</p></details>
+    <details><summary>學生需要帳號或 AI 金鑰嗎？</summary><p>不需要。聊天內容都是事先寫好的劇本，手機開網頁、輸入座號即可使用。</p></details>
+    <details><summary>學習單的答案都找得到嗎？</summary><p>學習單每一格都對應聊天室裡的某個主題。同一主題有好幾則內容時，多點幾次按鈕就會依序出現。</p></details>
+    <details><summary>怎麼看學生的成績？</summary><p>學生按「📝 正式作答」交卷後，成績會進到老師的 Google 表單回覆試算表。</p></details>
+  </div>
+</section>
+
+<footer>學習單與聊天室劇本｜古人聊天室・內容含傳說處皆已標註</footer>
+
+<script src="assets/common.js"></script>
+<script src="assets/scene.js"></script>
+<script src="people/list.js"></script>
+<script>
+(async () => {
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  for (const id of ACP_LIST) {
+    await new Promise((ok) => { const s = document.createElement("script"); s.src = `people/${id}.js`; s.onload = s.onerror = ok; document.head.appendChild(s); });
+  }
+  let pages = {};
+  try { pages = await (await fetch("worksheets/manifest.json")).json(); } catch (e) {}
+  const people = ACP_LIST.map((id) => ACP_PEOPLE[id]).filter(Boolean);
+
+  document.getElementById("heroImg").src = ACPScene.dataUrl("lake", { seed: 3 });
+  document.getElementById("heroSeals").innerHTML = people.map((p) => `<span style="background:${p.color}">${esc(p.seal)}</span>`).join("");
+  document.getElementById("topicTags").innerHTML = ACP_TOPICS.map((t) => `<span>${t.icon} ${t.label}</span>`).join("");
+
+  document.getElementById("cards").innerHTML = people.map((p) => {
+    const n = pages[p.id] && pages[p.id].student;
+    return `<article class="card">
+      <div class="dyn">${esc(p.dynasty)}</div>
+      <h3><i style="background:${p.color}">${esc(p.seal)}</i>${esc(p.name)}</h3>
+      <div class="works">${esc(p.works)}</div>
+      <a class="thumb" href="worksheets/${p.id}-student.pdf" target="_blank" rel="noopener"><img src="images/${p.id}.jpg" alt="${esc(p.name)}學習單預覽" loading="lazy"></a>
+      <p class="ext"><b>課堂延伸</b>${esc(p.extension)}</p>
+      <div class="btns">
+        <a class="btn pri" href="${p.id}/">💬 進入聊天室</a>
+        <a class="btn soft" href="worksheets/${p.id}-student.pdf" target="_blank" rel="noopener">學用版${n ? " · " + n + " 頁" : ""}</a>
+        <a class="btn" href="worksheets/${p.id}-teacher.pdf" target="_blank" rel="noopener">教用版</a>
+      </div>
+    </article>`;
+  }).join("");
+})();
+</script>
 </body>
 </html>

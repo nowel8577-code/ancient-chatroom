@@ -3,33 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>蘇軾古人聊天室</title>
-<link rel="stylesheet" href="styles.css">
+<title>AI古人聊天室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap">
+<link rel="stylesheet" href="../assets/chat.css">
 </head>
-<body>
-<div class="phone">
-  <header class="topbar">
-    <div class="avatar">坡</div>
-    <div class="who">
-      <div class="name">蘇軾 <span class="tag">東坡居士</span></div>
-      <div class="status"><i class="dot"></i><span>在線・宋代</span></div>
-    </div>
-    <button id="seatBtn" class="chip" title="變更座號">👤 <span id="seatLabel">未登入</span></button>
+<body data-person="su">
+<div class="app">
+  <header class="top">
+    <a class="ib" href="../" aria-label="回首頁">‹</a>
+    <div class="ava seal big"></div>
+    <b id="who" class="who"></b>
+    <div class="title">AI古人聊天室</div>
+    <label class="fsz" title="字體大小"><small>A</small><input id="fs" type="range" min="14" max="24" value="16" aria-label="字體大小"><big>A</big></label>
+    <button id="full" class="ib" aria-label="全螢幕">⛶</button>
+    <a class="ib" href="../" aria-label="離開聊天室">✕</a>
   </header>
 
-  <main id="chat" class="chat" aria-live="polite"></main>
-
-  <footer class="bottom">
-    <div class="menu">
-      <button data-topic="intro">👦 自我介紹</button>
-      <button data-topic="works">📜 得意作品</button>
-      <button data-topic="gossip">🍵 八卦趣聞</button>
-      <button data-topic="friends">👥 文人朋友圈</button>
-      <button id="quizBtn" class="quiz">🎯 友情考核</button>
-      <button id="formBtn" class="quiz" hidden>📝 正式作答</button>
+  <main id="stage" class="stage">
+    <div id="chat" class="chat" aria-live="polite"></div>
+    <button id="seatBtn" class="pill seatpill" title="變更座號">👤 <span id="seatLabel">未登入</span></button>
+    <div class="pills">
+      <button id="formBtn" class="pill hot" hidden>📝 正式作答</button>
+      <button id="endBtn" class="pill">💬 對話結束 ›</button>
     </div>
+    <div id="call" class="call" hidden>
+      <div class="scene"></div>
+      <div class="cbar"><span class="rec">● 視訊中</span><span class="ctitle"></span><span class="clock">00:00</span></div>
+      <div class="ava seal huge"></div>
+      <div class="caption"></div>
+      <button class="hang" aria-label="掛斷">📞 掛斷</button>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <nav id="dock" class="dock"></nav>
     <form id="form" class="input">
-      <input id="text" type="text" placeholder="對東坡說點什麼…" autocomplete="off">
+      <input id="text" type="text" autocomplete="off">
       <button type="submit">送出</button>
     </form>
   </footer>
@@ -37,15 +47,17 @@
 
 <dialog id="seatDlg">
   <form method="dialog" id="seatForm">
-    <h3>歡迎來到蘇軾聊天室</h3>
+    <h3 id="dlgTitle"></h3>
     <p>請輸入你的「班級座號」（例：701 班 5 號 → 70105），老師才看得到你的答題情況。</p>
-    <input id="seatInput" type="text" maxlength="12" placeholder="班級座號" autocomplete="off">
-    <div class="row"><button id="seatOk" value="ok">進入聊天室</button></div>
+    <input id="seatInput" type="text" maxlength="12" placeholder="班級座號" autocomplete="off" inputmode="numeric">
+    <div class="row"><button value="ok">進入聊天室</button></div>
   </form>
 </dialog>
 
 <script src="config.js"></script>
-<script src="app-data.js"></script>
-<script src="app.js"></script>
+<script src="../assets/common.js"></script>
+<script src="../assets/scene.js"></script>
+<script src="../people/su.js"></script>
+<script src="../assets/chat.js"></script>
 </body>
 </html>

@@ -5,23 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>古人聊天室 QR Code</title>
 <style>
-  body{margin:0;font-family:"Noto Serif TC","Microsoft JhengHei",serif;background:#f4ecd8;color:#3b2f24;padding:24px;text-align:center}
-  h1{color:#8a2a1e;margin:0 0 4px}
-  .row{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;margin-top:20px}
-  figure{margin:0;background:#fff;border:1px solid #d9c9a3;border-radius:14px;padding:16px;width:280px}
-  img{width:100%;image-rendering:pixelated}
-  figcaption b{display:block;font-size:22px;margin-top:6px}
+  body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;background:#faf5ec;color:#2d2a26;padding:24px 16px;text-align:center}
+  h1{margin:0 0 4px}
+  .row{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;margin-top:20px}
+  figure{margin:0;background:#fff;border:1px solid #efe0c8;border-radius:18px;padding:18px;width:280px}
+  .qr{display:flex;justify-content:center}
+  .qr img,.qr canvas{width:220px!important;height:220px!important}
+  figcaption b{display:block;font-size:22px;margin-top:8px}
   figcaption span{font-size:12px;word-break:break-all;opacity:.7}
-  @media print{body{background:#fff}}
+  a.back{display:inline-block;margin-top:24px;color:#c4621c}
+  @media print{body{background:#fff}a.back{display:none}}
 </style>
 </head>
 <body>
 <h1>古人聊天室</h1>
 <p>手機掃描 QR Code 即可進入（可投影或列印）</p>
-<div class="row">
-  <figure><img src="qr/su.png" alt="蘇軾"><figcaption><b>蘇軾聊天室</b><span>…/ancient-chatroom/su/</span></figcaption></figure>
-  <figure><img src="qr/hanyu.png" alt="韓愈"><figcaption><b>韓愈聊天室</b><span>…/ancient-chatroom/hanyu/</span></figcaption></figure>
-  <figure><img src="qr/home.png" alt="首頁"><figcaption><b>選擇古人（首頁）</b><span>…/ancient-chatroom/</span></figcaption></figure>
-</div>
+<div class="row" id="row"></div>
+<a class="back" href="./">‹ 回首頁</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="assets/common.js"></script>
+<script src="people/list.js"></script>
+<script>
+(async () => {
+  for (const id of ACP_LIST) await new Promise((ok) => { const s = document.createElement("script"); s.src = `people/${id}.js`; s.onload = s.onerror = ok; document.head.appendChild(s); });
+  const base = location.href.replace(/qr\.html.*$/, "");
+  const items = ACP_LIST.map((id) => ({ name: ACP_PEOPLE[id].name + "聊天室", url: base + id + "/" })).concat([{ name: "選擇古人（首頁）", url: base }]);
+  const row = document.getElementById("row");
+  for (const it of items) {
+    const f = document.createElement("figure");
+    f.innerHTML = `<div class="qr"></div><figcaption><b>${it.name}</b><span>${it.url}</span></figcaption>`;
+    row.appendChild(f);
+    new QRCode(f.querySelector(".qr"), { text: it.url, width: 440, height: 440, correctLevel: QRCode.CorrectLevel.M });
+  }
+})();
+</script>
 </body>
 </html>
